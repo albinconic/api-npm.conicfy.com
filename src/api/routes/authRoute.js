@@ -1,17 +1,12 @@
-import {Hono} from "hono";
-import {register, logout, login} from "../controllers/authController";
-import methodNotAllowedMiddleware  from "../middlewares/methodNotAllowedMiddleware";
+const express = require('express');
+const { register, logout, login } = require('../controllers/authController');
+const methodNotAllowedMiddleware = require('../middlewares/methodNotAllowedMiddleware');
 
-const authRoutes = new Hono();
+const router = express.Router();
 
-authRoutes.post("/login", login).all(methodNotAllowedMiddleware);
+// Define routes with Express.js syntax
+router.post('/login', login, methodNotAllowedMiddleware);
+router.post('/register', register, methodNotAllowedMiddleware);
+router.get('/logout', logout, methodNotAllowedMiddleware);
 
-authRoutes.post("/register", register).all(methodNotAllowedMiddleware);
-
-authRoutes.get("/logout", logout).all(methodNotAllowedMiddleware);
-
-/*authRoutes.get("/logout", async (c) => {
-    return await logout(c);
-});*/
-
-export default authRoutes;
+module.exports = router;

@@ -1,24 +1,39 @@
 {
-  "name": "image-generator",
+  "name": "api-npm-conicfy",
+  "main": "src/server.js",
   "scripts": {
-    "dev": "node src/server.js",
-    "build": "esbuild --bundle src/server.js --platform=node --format=cjs --outfile=dist/server.js",
-    "start": "node dist/server.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "startPm2PROD": "pm2-runtime start ecosystem.config.js --env production",
+    "startPm2Dev": "pm2-runtime start ecosystem.config.js --env development"
   },
   "dependencies": {
     "@napi-rs/canvas": "^0.1.60",
+    "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "express-async-errors": "^3.1.1",
+    "express-fileupload": "^1.5.1",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.4.1",
     "helmet": "^8.0.0",
     "hono": "^4.6.9",
+    "http-proxy-middleware": "^3.0.3",
     "http-status-codes": "^2.3.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.16",
+    "pm2": "^5.4.2",
+    "pug": "^3.0.3",
+    "qs": "^6.13.0",
+    "xss-clean": "^0.1.4"
   },
   "devDependencies": {
-    "npm-run-all": "^4.1.5",
-    "esbuild": "^0.14.0"
+    "nodemon": "^3.1.7"
   },
   "engines": {
     "node": ">=21.5.0"

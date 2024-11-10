@@ -1,15 +1,13 @@
-import CustomAPIError from "./customAPIError";
-import BadRequestError from "./badRequestError";
-import NotFoundError from "./notFoundError";
-import UnauthorizedError from "./unauthorizedError";
-import UnauthenticatedError from "./unauthenticatedError";
+const CustomAPIError = require('./customAPIError');
+const BadRequestError = require('./badRequestError');
+const NotFoundError = require('./notFoundError');
+const UnauthenticatedError = require('./unauthenticatedError.js');
+const UnauthorizedError = require('./unauthorizedError');
 
-const CustomAPIErrorNamespace = {
+module.exports = {
     CustomAPIError,
     BadRequestError,
     NotFoundError,
-    UnauthorizedError,
     UnauthenticatedError,
-}
-
-export default CustomAPIErrorNamespace;
+    UnauthorizedError
+};

@@ -1,11 +1,12 @@
-import {Hono} from 'hono'
-import {getImage} from "../controllers/imageController";
-import methodNotAllowedMiddleware from "../middlewares/methodNotAllowedMiddleware";
+const express = require('express');
+const { getImage } = require('../controllers/imageController');
+const methodNotAllowedMiddleware = require('../middlewares/methodNotAllowedMiddleware');
 
-const imageRoutes = new Hono();
+const router = express.Router();
 
-imageRoutes.get('/get-image/:width?/:height?', getImage, methodNotAllowedMiddleware);
-//imageRoutes.get('/get-image/:width{[0-9]+}?/:height?', getImage, methodNotAllowedMiddleware);
-//imageRoutes.get('/get-image', getImage, methodNotAllowedMiddleware);
+// Define routes with Express.js syntax
+router.get('/get-image/:width?/:height?', getImage, methodNotAllowedMiddleware);
+// router.get('/get-image/:width(\\d+)?/:height?', getImage, methodNotAllowedMiddleware); // Uncomment if using numeric validation for width
+// router.get('/get-image', getImage, methodNotAllowedMiddleware);
 
-export default imageRoutes;
+module.exports = router;

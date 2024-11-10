@@ -1,7 +1,7 @@
-import {StatusCodes} from "http-status-codes";
+const { StatusCodes } = require("http-status-codes");
 
-const methodNotAllowedMiddleware = (c) => {
-    return c.text('Method not allowed!', StatusCodes.METHOD_NOT_ALLOWED);
-}
+const methodNotAllowedMiddleware = (req, res) => {
+    res.status(StatusCodes.METHOD_NOT_ALLOWED).send('Method not allowed!');
+};
 
-export default methodNotAllowedMiddleware;
+module.exports = methodNotAllowedMiddleware;

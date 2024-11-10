@@ -1,7 +1,5 @@
-import {StatusCodes} from "http-status-codes";
+const {StatusCodes} = require('http-status-codes');
 
-const notFoundMiddleware = (c) => {
-    return c.text('Route does not exist!', StatusCodes.NOT_FOUND);
-}
+const notFoundMiddleware = (req, res) => res.status(StatusCodes.NOT_FOUND).send('Route does not exist!');
 
-export default notFoundMiddleware;
+module.exports = notFoundMiddleware;

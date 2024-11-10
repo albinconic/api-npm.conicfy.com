@@ -1,21 +1,17 @@
-import {StatusCodes} from "http-status-codes";
+const { StatusCodes } = require("http-status-codes");
 
-const register = async (c) => {
-    const {email, name, password} = await c.req.json();
+const register = async (req, res) => {
+    const { email, name, password } = req.body;
+    res.status(StatusCodes.CREATED).json({ "user": "test" });
+};
 
-    return c.json({"user": "test"}, StatusCodes.CREATED);
-}
+const login = async (req, res) => {
+    const { email, name, password } = req.body;
+    res.status(StatusCodes.OK).json({ "user": "test" });
+};
 
-const login = async (c) => {
-    const {email, name, password} = await c.req.json();
+const logout = async (req, res) => {
+    res.status(StatusCodes.OK).json({ "user": "test" });
+};
 
-    return c.json({"user": "test"}, StatusCodes.OK);
-}
-
-const logout = async (c) => {
-    //const {email, name, password} = await c.req.json();
-
-    return c.json({"user": "test"}, StatusCodes.OK);
-}
-
-export { register, login, logout };
+module.exports = { register, login, logout };

@@ -1,28 +1,43 @@
-import { Hono } from "hono";
-import authRoutes from "./api/routes/authRoute";
-import imageRoutes from "./api/routes/imageRoute";
-import notFoundRoutes from "./api/middlewares/notFoundMiddleware";
-import errorHandlerMiddleware from "./api/middlewares/errorHandlerMiddleware";
+const express = require("express");
+const authRoutes = require("./api/routes/authRoute");
+const imageRoutes = require("./api/routes/imageRoute");
+const notFoundMiddleware = require("./api/middlewares/notFoundMiddleware");
+const errorHandlerMiddleware = require("./api/middlewares/errorHandlerMiddleware");
 
-const app = new Hono();
+const app = express();
 
-// Public
-app.get("/public/*", async (ctx) => {
-    return await ctx.env.ASSETS.fetch(ctx.req.raw);
+// Middleware to parse JSON
+app.use(express.json());
+
+
+// Public route for assets
+app.get("/public/*", (req, res) => {
+    // Replace this with logic to serve static assets, e.g., using Express static middleware
+    res.send("Serve public assets here.");
 });
 
-
-// Home
-app.get("/", (ctx) => ctx.text("Hello world, this is Hono!! TEST"));
+// Home route
+app.get("/", (req, res) => {
+    res.send("Hello world, this is Express!! TEST");
+});
 
 // Routes
-app.route('/api/v1/auth', authRoutes);
-app.route('/api/v1/image', imageRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/image', imageRoutes);
 
-// Global error for undefined routes
-app.notFound(notFoundRoutes);
+// Global middleware for undefined routes
+app.use(notFoundMiddleware);
 
-// Global error handling
-app.onError((err, c) => errorHandlerMiddleware(err,c));
+// Global error handling middleware
+app.use(errorHandlerMiddleware);
 
-export default app;
+// Start the server
+const PORT = process.env.PORT || 3000;
+
+const start = async () => {
+    app.listen(PORT, () => {
+        console.log(`Server is listening on port ${PORT}`);
+    });
+}
+
+start();
